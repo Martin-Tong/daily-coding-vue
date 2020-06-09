@@ -1,0 +1,17 @@
+[ignore]
+.*/node_modules/.*
+.*/dist/.*
+.*/build/.*
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+module.file_ext=.vue
+module.file_ext=.js
+module.file_ext=.jsx
+module.file_ext=.json
+module.name_mapper='^@\/\(.*\)$' -> '<PROJECT_ROOT>/src/\1'
+[strict]
