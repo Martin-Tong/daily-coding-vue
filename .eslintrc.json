@@ -5,14 +5,18 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:vue/essential"
+        "plugin:vue/essential",
+        "plugin:flowtype/recommended"
     ],
     "parserOptions": {
+        "parser": "babel-eslint",
         "ecmaVersion": 11,
         "sourceType": "module"
     },
+    "parser": "vue-eslint-parser",
     "plugins": [
-        "vue"
+        "vue",
+        "flowtype"
     ],
     "rules": {
     }
