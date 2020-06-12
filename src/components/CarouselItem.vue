@@ -1,7 +1,7 @@
 <template>
-    <div class="mt-carousel-items">
-        <img :src="this.src" :alt="this.alt" :title="this.alt" class="f2">
-    </div>
+    <a class="mt-carousel-items" href="javascript:void(0)">
+        <img :src="this.src" :alt="this.alt" :title="this.alt">
+    </a>
 </template>
 
 <script>
