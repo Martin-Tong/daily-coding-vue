@@ -3,6 +3,10 @@
         "browser": true,
         "es2020": true
     },
+    "globals": {
+        "TWEEN": "readonly",
+        "COLORS": "writable"
+    },
     "extends": [
         "eslint:recommended",
         "plugin:vue/essential",
