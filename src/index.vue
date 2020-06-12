@@ -2,6 +2,7 @@
 <template>
     <div>
         <router-view />
+        <router-view name="placeholder" />
     </div>
 </template>
 

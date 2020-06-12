@@ -2,6 +2,7 @@
 <template>
     <div id="nest1">
         <div id="nest2">nest2</div>
+        <i class="fas fa-chevron-left"></i>
     </div>
 </template>
 */
@@ -10,9 +11,8 @@
 const Test = () => import('../../../utils/customeEvent.js')
 export default {
     mounted() {
-        console.log(Test())
         let a =document.querySelector('#nest2')
-        a.addEventListener('test',()=>{alert(1)})
+        a.addEventListener('test',()=>{console.log('test event triggerd')})
         this.test()
     },
     methods: {
