@@ -3,6 +3,7 @@ import Vue from 'vue/dist/vue.esm.js'
 import APP from '@/index.vue'
 import '@/index.css'
 import Router from 'vue-router'
+import Vuex from 'vuex'
 import router from '@/router/index.js'
 import store from '@/store/index.js'
 
@@ -31,6 +32,7 @@ baseComponents.keys().forEach(filename => {
 /* eslint-disable */
 
 Vue.use(Router)
+Vue.use(Vuex)
 
 new Vue({
     el: "#entry",

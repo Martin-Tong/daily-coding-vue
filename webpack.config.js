@@ -42,7 +42,7 @@ module.exports = (env) => {
                 /* { automaticNameDelimiter?, automaticNameMaxLength?, cacheGroups?, chunks?, fallbackCacheGroup?, filename?, hidePathInfo?, maxAsyncRequests?, maxInitialRequests?, maxSize?, minChunks?, minSize?, name? } */
                 automaticNameDelimiter: 'dependence-',
                 cacheGroups: {                 
-                    vue$x: {
+                    'vue-x': {
                         name(module, chunks, cacheGroupKey) {
                             return cacheGroupKey
                         },

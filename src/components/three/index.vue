@@ -2,7 +2,7 @@
     <div id="three">
         <div id='three-scene'>
         </div>
-        <pre v-text="holder"></pre>
+        <pre>{{this.ovo}}</pre>
         <!--这里is用在普通的html标签上时test值绑定在 html.__vue__里，即此时VUE将这个普通html视为组件 -->
         <!-- <div id='oioi' :is="test"></div> -->
     </div>
@@ -15,22 +15,17 @@ export default {
     name: 'Three',
     data() {
         return {
-            holder: null,
-            /* test: {
-                name: 'Test',
-                data() {
-                    return {
-                        a:1
-                    }
-                },
-                render: (h) => {
-                    return h('p', 'test')
-                }
-            } */
+            holder: null
         }
     },
+    computed: {
+        ovo(){
+           return this.$store.state.isWebGLAvailable
+        } 
+    },
     mounted() {
-        this.init()
+        console.log(this.$store)
+        //this.init()
         //this.$once('hook:beforeDestory',function(){this.threeIns = null})
     },
     methods: {
