@@ -15,7 +15,7 @@ export default new VueRouter({
             component: Three
         },
         {
-            path: 'echarts',
+            path: '/echarts',
             component: Echarts
         }
     ]

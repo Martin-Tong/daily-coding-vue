@@ -1,6 +1,6 @@
 /* 主页 */
 <template>
-    <div>
+    <div id="view-root">
         <router-view />
         <router-view name="placeholder" />
     </div>
@@ -11,3 +11,10 @@ export default {
 
 }
 </script>
+
+<style>
+    #view-root {
+        height: 100%;
+        width: 100%;
+    }
+</style>>

@@ -10,12 +10,16 @@ module.exports = (env) => {
     const isProduction = env.production
     return {
         mode: isProduction ? 'production' : 'development',
-        entry: './index.js',
+        entry: {
+            main: './index.js',
+            mock: './mock.js'
+        },
         output: {
             path: path.resolve(__dirname, 'dist'),
             filename: isProduction ? "[chunkhash].file.js" : "[name].file.js",
             chunkFilename: isProduction ? "[id].[chunkhash].js" : "[name].chunkFile.js",
-            sourceMapFilename: '[file].map'
+            sourceMapFilename: 'sourceMap/[file].map',
+            jsonpFunction: 'vueProject'
         },
         resolve: {
             alias: {
