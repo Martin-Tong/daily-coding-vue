@@ -84,7 +84,6 @@ export default {
         width: var(--view-width);
         height: var(--view-width);
         position: relative;
-        flex: 2;
         outline: none;
         border-radius: 5%;
         overflow: hidden;
@@ -92,7 +91,7 @@ export default {
     }
     #mt-upload-input input::after {
         content: '+';
-        background-color: gray;
+        background-color: lightgray;
         line-height: var(--view-width);
         width: var(--view-width);
         font-size: calc(var(--view-width) / 3);

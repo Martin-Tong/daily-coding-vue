@@ -1,17 +1,15 @@
-/* @flow
 <template>
     <div id="echarts">
         <CustomUpload 
             :cOptions="{showLabel: true}" 
             @change="uploadFile"
-            style="margin:5px 0; display:inline-block"
+            style="margin:5px 0; display:inline-block;"
         />
         <div id="echarts-container"></div>
     </div>
 </template>
-*/
 
-//<script>
+<script>
 import Echarts from 'echarts'
 export default {
     data() {
@@ -31,24 +29,52 @@ export default {
         init() {
             let a = document.querySelector('#echarts-container')
             this.echart = Echarts.init(a, null, {
-                width: 'auto',
-                height: 'auto'
+                width: '960px',
+                height: '480px'
             })
-            this.$once("hook:beforeDestroy", ()=>{a = null})
+            this.$once("hook:beforeDestroy", ()=>{this.echart = null})
         },
         setOption(option) {
             let originOption = {
-                backgroundColor: 'black',
+                backgroundColor: 'transparent',
+                title: {
+                    id: "1",
+                    show: true,
+                    text: 'custome title',
+                    textVerticalAlign: 'top'
+                },
+                /* grid: {}, */
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross'
+                    }
+                },
                 xAxis: [
                     {
-                        data: ['1','2','3','4','5']
-                    }
+                        type: 'value',
+                        min: 0,
+                        max: 11,
+                        splitNumber: 10
+                        
+                    }/* ,
+                    {
+                        name: 'xAxis2',
+                        data: ['1','2','3','4','5'],
+                        nameLocation: 'middle',
+                        nameGap: 30
+                    } */
                 ],
+                legend: {},
                 yAxis: {},
                 series: [
                     {
-                        type: 'bar',
-                        data: option
+                        type: 'line',
+                        name: 'line',
+                        data: option,
+                        smooth: true,
+                        xAxisIndex: 0,
+                        symbol: 'diamond'
                     }
                 ]
             }
@@ -69,33 +95,25 @@ export default {
         },
         uploadFile(e) {
             let fileReader = new FileReader(),
-                target = e.target
-            console.log(e)
-            fileReader.readAsDataURL(target.files[0])
+                target = e.target.files[0]
+            console.log(target.files[0])
+            fileReader.readAsText(target)
             fileReader.onload = () =>{
-                console.log(fileReader.result)
+                console.log(this)
+                this.setOption(JSON.parse(fileReader.result).key)
             }
             
         }
     }
 }
-//</script>
+</script>
 
-/*
 <style>
     #echarts {
         width: 100%;
-        height: 100%
-    }
-    input[type="file"]#echarts-dataset-upload {
-        display: inline-block;
-        height: 8em;
-        width: 8em;
-        opacity: 0; 
+        height: 100%;      
     }
     #echarts-container {
-        height: 80%;
         width: 50%;
     }
 </style>
-*/
