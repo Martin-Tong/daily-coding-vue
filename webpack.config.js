@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const CopyWebackPlugin = require('copy-webpack-plugin')
 
-module.exports = (env) => {
+module.exports = /* SPA config */(env) => {
     const isProduction = env.production
     return {
         mode: isProduction ? 'production' : 'development',
@@ -16,10 +16,14 @@ module.exports = (env) => {
         },
         output: {
             path: path.resolve(__dirname, 'dist'),
-            filename: isProduction ? "[chunkhash].file.js" : "[name].file.js",
-            chunkFilename: isProduction ? "[id].[chunkhash].js" : "[name].chunkFile.js",
+            filename: isProduction ? "[chunkhash:8].file.js" : "[name].file.js", //[chunkhash:8]等于output.hashDigestLength:8
+            chunkFilename: isProduction ? "[id].[chunkhash:8].js" : "[name].chunkFile.js",
             sourceMapFilename: 'sourceMap/[file].map',
-            jsonpFunction: 'vueProject'
+            jsonpFunction: 'vueProject',
+            /* 
+            publicPath: 'statics/' //导出的html内部所有的资源连接将会加上statics/前缀（相对于index.html页面的位置）
+                                // 
+            */
         },
         resolve: {
             alias: {
@@ -90,11 +94,15 @@ module.exports = (env) => {
         },
         plugins: [
             new vueLoaderPlugin(),
-            new miniCssExtractPlugin(),
+            new miniCssExtractPlugin({
+                /* filename: 'style.css',
+                chunkFilename: 'scoped.css',
+                ignoreOrder: true */
+            }),
             new HtmlWebpackPlugin({
                 title: 'threeJS project',
                 template: path.resolve(__dirname, './index.html'),
-                favicon: './dist/public/resume.jpg',
+                favicon: './public/resume.jpg',
                 inject: 'body'
             }),
             new CleanWebpackPlugin(),

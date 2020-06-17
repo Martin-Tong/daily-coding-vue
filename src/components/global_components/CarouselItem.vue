@@ -17,7 +17,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .mt-carousel-items {
         flex: 1;
     }

@@ -1,2 +1,4 @@
 dist
+build
+scripts
 webpack.config.js

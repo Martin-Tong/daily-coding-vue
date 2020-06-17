@@ -21,7 +21,7 @@ Vue.config.errorHandler = function(err, vm, info) {
 
 /* eslint-disable */
 // $FlowFixMe
-const baseComponents = require.context('./src/components', false, /\.vue$/, 'lazy')
+const baseComponents = require.context('./src/components/global_components', false, /\.vue$/, 'lazy')
 baseComponents.keys().forEach(filename => {
     baseComponents(filename).then(o => {
         Vue.component(o.default.name, o.default || o)

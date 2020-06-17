@@ -14,7 +14,7 @@ import Echarts from 'echarts'
 export default {
     data() {
         return {
-            echart: null
+            echart : null
         }
     },
     mounted() {
@@ -32,6 +32,7 @@ export default {
                 width: '960px',
                 height: '480px'
             })
+            console.log(this.echart)
             this.$once("hook:beforeDestroy", ()=>{this.echart = null})
         },
         setOption(option) {
@@ -96,7 +97,7 @@ export default {
         uploadFile(e) {
             let fileReader = new FileReader(),
                 target = e.target.files[0]
-            console.log(target.files[0])
+            console.log(target)
             fileReader.readAsText(target)
             fileReader.onload = () =>{
                 console.log(this)
