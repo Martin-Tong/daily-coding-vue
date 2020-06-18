@@ -1,13 +1,11 @@
-/* @flow 
 <template>
     <div id="nest1">
         <div id="nest2">nest2</div>
         <i class="fas fa-chevron-left"></i>
     </div>
 </template>
-*/
 
-//<script>
+<script>
 const Test = () => import('../../../utils/customeEvent.js')
 export default {
     mounted() {
@@ -22,4 +20,4 @@ export default {
         }
     }
 }
-//</script>
+</script>

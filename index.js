@@ -23,7 +23,7 @@ Vue.config.errorHandler = function(err, vm, info) {
 // $FlowFixMe
 const baseComponents = require.context('./src/components/global_components', false, /\.vue$/, 'lazy')
 baseComponents.keys().forEach(filename => {
-    baseComponents(filename).then(o => {
+    baseComponents(/* webpackChunkName: "mt-components" */ filename).then(o => {
         Vue.component(o.default.name, o.default || o)
     })
 /*     const componentName = filename.split('/')[1].split('.')[0]

@@ -14,14 +14,14 @@ import Echarts from 'echarts'
 export default {
     data() {
         return {
-            echart : null
         }
     },
     mounted() {
+        let that = this
         this.init()
         this.fetchData('/api/echarts-dataset-json').then((data) => {
             let a = JSON.parse(data)
-            console.log(a)
+            console.log(that)
             this.setOption(a.key)
         }).catch(e=>{console.log(e)})
     },
@@ -49,15 +49,19 @@ export default {
                     trigger: 'axis',
                     axisPointer: {
                         type: 'cross'
-                    }
+                    },
+                    formatter: "{a}${b}${c}"
                 },
                 xAxis: [
                     {
                         type: 'value',
                         min: 0,
                         max: 11,
-                        splitNumber: 10
-                        
+                        splitNumber: 10,
+                        axisPointer: {
+                            type: 'shadow',
+                            triggerTooltip: false
+                        }
                     }/* ,
                     {
                         name: 'xAxis2',
@@ -70,12 +74,16 @@ export default {
                 yAxis: {},
                 series: [
                     {
-                        type: 'line',
-                        name: 'line',
+                        type: 'scatter',
+                        name: 'lineEX',
                         data: option,
-                        smooth: true,
+                        label: {
+                            show: true,
+                            formatter: '{a}-{b}-{@[2]}'
+                        },
                         xAxisIndex: 0,
-                        symbol: 'diamond'
+                        symbol: 'circle',
+                        dimension: ['first', 'second', 'third']
                     }
                 ]
             }

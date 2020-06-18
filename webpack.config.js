@@ -22,7 +22,7 @@ module.exports = /* SPA config */(env) => {
             jsonpFunction: 'vueProject',
             /* 
             publicPath: 'statics/' //导出的html内部所有的资源连接将会加上statics/前缀（相对于index.html页面的位置）
-                                // 
+                                //也可以是绝对路径，如使用CDN资源 
             */
         },
         resolve: {
@@ -48,7 +48,15 @@ module.exports = /* SPA config */(env) => {
             } */
             splitChunks: {
                 /* { automaticNameDelimiter?, automaticNameMaxLength?, cacheGroups?, chunks?, fallbackCacheGroup?, filename?, hidePathInfo?, maxAsyncRequests?, maxInitialRequests?, maxSize?, minChunks?, minSize?, name? } */
-                automaticNameDelimiter: 'dependence-',
+                //automaticNameDelimiter: 'dependence-', 
+                //⬇⬇⬇可以定义通过import()等方式动态导入的文件中分离出的包的名称（如当动态导入的某个文件依赖另外一个非常大的包时就会自动分离出一个单独的包）
+                //后面cacheGroups里面单独定义的name值会覆盖这里的定义
+                //注意：当name返回一个固定值（如name:<string>或者name:<function返回一个固定的字符串>），那么除了下面cacheGroup定义之外的所有分离的包都会合并在一起。当然也可以返回不同的name已生成多个包
+                /* name(module, chunks, cacheGroupKey) {
+                    let a = module.identifier().split('/').reduceRight(item => item)
+                    return `vendor~${a}`
+                }, */
+                name: true,                 
                 cacheGroups: {                 
                     'vue-x': {
                         name(module, chunks, cacheGroupKey) {
@@ -66,6 +74,14 @@ module.exports = /* SPA config */(env) => {
                         filename: 'vendors/dependence-[name].js',
                         chunks: 'all'
                     },
+                    style: {
+                        name(module, chunks, cacheGroupKey) {
+                            return cacheGroupKey
+                        },
+                        test:/[\\/][0-9]+\.vue[\\/]/,
+                        filename: '[name].css',
+                        chunks: 'all'
+                    }
                    /*  './src/router/index.js'里需要修改Three的引用方式为非动态导入才能成功split
                     three: {
                         test: /[\\/]node_modules[\\/]three[\\/]/,
@@ -83,7 +99,7 @@ module.exports = /* SPA config */(env) => {
                 },
                 {
                     test: /\.css$/,
-                    use: [isProduction ? miniCssExtractPlugin.loader : 'vue-style-loader', 'css-loader']
+                    use: [!isProduction ? miniCssExtractPlugin.loader : 'vue-style-loader', 'css-loader']
                 },
                 {
                     test: /\.js$/,
@@ -95,9 +111,9 @@ module.exports = /* SPA config */(env) => {
         plugins: [
             new vueLoaderPlugin(),
             new miniCssExtractPlugin({
-                /* filename: 'style.css',
-                chunkFilename: 'scoped.css',
-                ignoreOrder: true */
+                filename: 'index.css',
+                chunkFilename: '[name].css',
+                ignoreOrder: true
             }),
             new HtmlWebpackPlugin({
                 title: 'threeJS project',
