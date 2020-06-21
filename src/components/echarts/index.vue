@@ -1,11 +1,14 @@
 <template>
     <div id="echarts">
-        <CustomUpload 
-            :cOptions="{showLabel: true}" 
-            @change="uploadFile"
-            style="margin:5px 0; display:inline-block;"
-        />
-        <div id="echarts-container"></div>
+        <div>
+            <CustomUpload 
+                :cOptions="{showLabel: true}" 
+                @change="uploadFile"
+                style="margin:5px 0; display:inline-block;"
+            />
+            <div id="echarts-container"></div>
+        </div>
+        <SideWidge />
     </div>
 </template>
 

@@ -9,9 +9,11 @@ context.keys.forEach(element => {
 import Carousel from './Carousel.vue'
 import CarouselItem from './CarouselItem.vue'
 import CustomUpload from './CustomUpload.vue'
+import SideWidge from './SideWidge.vue'
 
 export {Carousel}
 export {CarouselItem}
 export {CustomUpload}
+export {SideWidge}
 
-export default {Carousel, CarouselItem, CustomUpload}
+export default {Carousel, CarouselItem, CustomUpload, SideWidge}

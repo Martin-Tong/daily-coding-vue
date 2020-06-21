@@ -6,7 +6,7 @@
 *@params group: <Boolean> default false
 *@params delay: <Number> default 0ms
 **/
-export function createTweenIns(from, to, delay=0, interval=1000, group=false) {
+export function createTweenIns(from, to, delay=0, interval=1000, callback, group=false) {
     let tweenIns, tweenGroup
     if (group) {
         tweenGroup = new TWEEN.Group()
@@ -14,7 +14,7 @@ export function createTweenIns(from, to, delay=0, interval=1000, group=false) {
     } else {
         tweenIns = new TWEEN.Tween(from)
     }
-    tweenIns.to(to, interval).onUpdate((x)=>{console.log(x)}).start(delay)
+    tweenIns.to(to, interval).onUpdate((x)=>{callback(x)}).start(delay)
     return tweenGroup
 }
 
