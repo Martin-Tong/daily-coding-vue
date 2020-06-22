@@ -29,9 +29,9 @@ export default {
             let a,
                 that = this
             if (this.width == 0 && this.closed) {
-                a = new TWEEN.Tween({width: this.width}).to({width: 250}, 500)
-            } else if (this.width == 250 && !this.closed) {
-                a = new TWEEN.Tween({width: this.width}).to({width: 0}, 500)
+                a = new TWEEN.Tween({width: this.width}).to({width: 280}, 360)
+            } else if (this.width == 280 && !this.closed) {
+                a = new TWEEN.Tween({width: this.width}).to({width: 0}, 360)
             } else {
                 return
             }

@@ -18,8 +18,9 @@ Vue.config.errorHandler = function(err, vm, info) {
         `%c errorCaptured: <${err}> \n error from hook: ${info}`, "color: white;background-color: orange")
     console.log(vm)
 }
-
 /* eslint-disable */
+Vue.config.performance = true
+
 // $FlowFixMe
 const baseComponents = require.context('./src/components/global_components', false, /\.vue$/, 'lazy')
 baseComponents.keys().forEach(filename => {
