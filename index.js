@@ -36,6 +36,7 @@ Vue.use(Router)
 Vue.use(Vuex)
 
 new Vue({
+    comments: true,
     el: "#entry",
     router,
     store,

@@ -9,14 +9,36 @@
             <div id="echarts-container"></div>
         </div>
         <SideWidge />
+        <!-- 模态框 -->
+        <Modal @toggled="modalToggled" ref="modal" :beforeShow="this.popp">
+            <iframe 
+                referrerpolicy="unsafe-url" 
+                sandbox=""
+                ref="ifr" 
+                seamless  
+                allow="payment" 
+                src=""
+                style="object-fit:cover"
+                scrollig='no'
+                >你的浏览器不支持内嵌框架</iframe>
+        </Modal>
+        <!-- 模态框end -->
+        <button @click="toggleModal">{{buttonText}}</button>
     </div>
 </template>
 
 <script>
 import Echarts from 'echarts'
 export default {
+    comments: true,
     data() {
         return {
+            show: ''
+        }
+    },
+    computed: {
+        buttonText() {
+            return this.show?"关闭":"打开"
         }
     },
     mounted() {
@@ -29,6 +51,13 @@ export default {
         }).catch(e=>{console.log(e)})
     },
     methods: {
+        popp() {
+            this.fetchData('/api/echarts-dataset-json').then((data) => {
+            let a = JSON.parse(data)
+            this.setOption(a.key)
+            }).catch(e=>{console.log(e)})
+            this.$refs.ifr.src='http://127.0.0.1:5000/auth/login'
+        },
         init() {
             let a = document.querySelector('#echarts-container')
             this.echart = Echarts.init(a, null, {
@@ -113,8 +142,18 @@ export default {
             fileReader.onload = () =>{
                 console.log(this)
                 this.setOption(JSON.parse(fileReader.result).key)
+            }          
+        },
+        modalToggled(e) {
+            console.log(e)
+            this.show = e
+        },
+        toggleModal() {
+            if (this.show) {
+                this.$refs.modal.close()
+            } else {
+                this.$refs.modal.show()
             }
-            
         }
     }
 }

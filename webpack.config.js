@@ -35,7 +35,7 @@ module.exports = /* SPA config */(env) => {
             contentBase: path.join(__dirname, 'dist/public'),
             contentBasePublicPath: '/static',
             open: 'chrome',
-            compress: true,
+            compress: false,
             writeToDisk: true,
             historyApiFallback: true,
             /* openPage: ['', 'three'] */
@@ -104,7 +104,7 @@ module.exports = /* SPA config */(env) => {
                 {
                     test: /\.js$/,
                     exclude: /node_modules/,
-                    use: ['babel-loader', "eslint-loader"]
+                    use: ['babel-loader', {loader:"eslint-loader",options:{fix:true}}]
                 }
             ]
         },
