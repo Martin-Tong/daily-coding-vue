@@ -5,7 +5,9 @@
     },
     "globals": {
         "TWEEN": "readonly",
-        "COLORS": "writable"
+        "COLORS": "writable",
+        "jQuery": "readonly",
+        "$": "readonly"
     },
     "extends": [
         "eslint:recommended",

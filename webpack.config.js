@@ -43,9 +43,12 @@ module.exports = /* SPA config */(env) => {
             overlay: true
         },
         optimization: {
-            /* runtimeChunk: {
+            /* //这个配置会导致entry生成的文件打包时作为non-entry file打包，即文件名为output.chunkFilename,而生成的运行时文件的命名为output.filename
+            runtimeChunk: {
                 name: 'webpackRuntime'
-            } */
+            }, */
+            namedModules: true,
+            moduleIds: 'named',
             splitChunks: {
                 /* { automaticNameDelimiter?, automaticNameMaxLength?, cacheGroups?, chunks?, fallbackCacheGroup?, filename?, hidePathInfo?, maxAsyncRequests?, maxInitialRequests?, maxSize?, minChunks?, minSize?, name? } */
                 //automaticNameDelimiter: 'dependence-', 
@@ -55,8 +58,10 @@ module.exports = /* SPA config */(env) => {
                 /* name(module, chunks, cacheGroupKey) {
                     let a = module.identifier().split('/').reduceRight(item => item)
                     return `vendor~${a}`
-                }, */
-                name: true,                 
+                }, */         
+                name: function(module, chunks, cacheGroupKey) {
+                    return chunks.id
+                },                 
                 cacheGroups: {                 
                     'vue-x': {
                         name(module, chunks, cacheGroupKey) {
@@ -78,8 +83,24 @@ module.exports = /* SPA config */(env) => {
                         name(module, chunks, cacheGroupKey) {
                             return cacheGroupKey
                         },
-                        test:/[\\/][0-9]+\.vue[\\/]/,
+                        test:/[\\/][0-9]+\.css[\\/]/,
                         filename: '[name].css',
+                        chunks: 'all'
+                    },
+                    jquery: {
+                        name(module, chunks, cacheGroupKey) {
+                            return cacheGroupKey
+                        },
+                        test:/[\\/]node_modules[\\/]jquery[\\/]/,
+                        filename: 'vendors/dependence-[name].js',
+                        chunks: 'all'
+                    },
+                    velocity: {
+                        name(module, chunks, cacheGroupKey) {
+                            return cacheGroupKey
+                        },
+                        test:/[\\/]node_modules[\\/]velocity-animate[\\/]/,
+                        filename: 'vendors/dependence-[name].js',
                         chunks: 'all'
                     }
                    /*  './src/router/index.js'里需要修改Three的引用方式为非动态导入才能成功split
@@ -124,7 +145,10 @@ module.exports = /* SPA config */(env) => {
             new CleanWebpackPlugin(),
             new webpack.ProvidePlugin({
                 TWEEN: ['@tweenjs/tween.js', 'default'],
-                COLORS: [path.resolve(path.join(__dirname, 'utils/colors.js')), 'default']
+                COLORS: [path.resolve(path.join(__dirname, 'utils/colors.js')), 'default'],
+                'window.jQuery': 'jquery',
+                jQuery: 'jquery',
+                $: 'jquery'
             }),
             new CopyWebackPlugin({
                 patterns: [

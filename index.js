@@ -1,4 +1,3 @@
-// @flow
 import Vue from 'vue/dist/vue.esm.js'
 import APP from '@/index.vue'
 import '@/index.css'
@@ -6,13 +5,18 @@ import Router from 'vue-router'
 import Vuex from 'vuex'
 import router from '@/router/index.js'
 import store from '@/store/index.js'
-
+/* eslint-disable */
+window.jQuery = $
+window.$ = $
+/* eslint-disable */
+import 'velocity-animate'
 /* import  cv, {createTweenIns, createAnimation} from './utils/tweenAnimation.js' 
 let a =createTweenIns({x:1}, {x:10}, 0,1000,true), b = createTweenIns({y:1}, {y:10}, 0,1000,true)
 TWEEN.update()
 createAnimation(a)()
 createAnimation(b)()
  */
+
 Vue.config.errorHandler = function(err, vm, info) {
     window.console.log(
         `%c errorCaptured: <${err}> \n error from hook: ${info}`, "color: white;background-color: orange")
@@ -36,7 +40,7 @@ Vue.use(Router)
 Vue.use(Vuex)
 
 new Vue({
-    comments: true,
+    comments: true, //这个选项只在完整构建版本中的浏览器内编译时可用。当设为 true 时，将会保留且渲染模板中的 HTML 注释。默认行为是舍弃它们。
     el: "#entry",
     router,
     store,

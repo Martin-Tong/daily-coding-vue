@@ -9,6 +9,10 @@
             <div id="echarts-container"></div>
         </div>
         <SideWidge />
+        <button @click="reIndex">reIndex</button>
+        <transition-group tag="ul" name="test">
+            <li v-for="item in test" :key="item">{{item}}</li>
+        </transition-group>
         <!-- 模态框 -->
         <Modal @toggled="modalToggled" ref="modal" :beforeShow="this.popp">
             <iframe 
@@ -24,7 +28,9 @@
         </Modal>
         <!-- 模态框end -->
         <button @click="toggleModal">{{buttonText}}</button>
+        <test-a v-if="show" />
     </div>
+     
 </template>
 
 <script>
@@ -33,12 +39,22 @@ export default {
     comments: true,
     data() {
         return {
-            show: ''
+            show: '',
+            test: [1,2,3,5,4]
         }
     },
     computed: {
         buttonText() {
             return this.show?"关闭":"打开"
+        }
+    },
+    components: {
+        "test-a": () => {
+            return {
+            loading: '<CustomUpload />',
+            component: import('@/components/home/index.vue'),
+            delay: 10000
+        }
         }
     },
     mounted() {
@@ -51,6 +67,19 @@ export default {
         }).catch(e=>{console.log(e)})
     },
     methods: {
+        reIndex() {
+            let a = this.test.slice(),
+                b = a.length,
+                c = []
+            for (let i =0 ; i< b ;i++) {
+                let d = Math.floor(Math.random()*(b-i))
+                c[i] = a[d]
+                a.splice(d,1)
+            }
+            this.test = c
+            console.log($)
+            /* this.test = [4,5,8,6,3,1] */
+        },
         popp() {
             this.fetchData('/api/echarts-dataset-json').then((data) => {
             let a = JSON.parse(data)
@@ -161,10 +190,14 @@ export default {
 
 <style>
     #echarts {
+        --ui: 35;
         width: 100%;
         height: 100%;      
     }
     #echarts-container {
         width: 50%;
+    }
+    .test-move {
+        transition: transform 0.5s;
     }
 </style>

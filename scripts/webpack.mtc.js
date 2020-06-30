@@ -41,6 +41,7 @@ module.exports = /* library config */(env) => {
                 },
                 {
                     test: /\.js$/i,
+                    exclude: /node_modules/,
                     use: 'babel-loader'
                 }
             ]
