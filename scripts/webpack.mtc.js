@@ -13,7 +13,8 @@ module.exports = /* library config */(env) => {
             path: path.resolve(__dirname, '../build/mt_components'), //ouput.path路径相对的是该webpacl配置文件所在的目录
             filename: 'mt-components.js',
             library: 'mtComponents',
-            libraryTarget: 'var'
+            libraryTarget: 'umd',
+            globalObject: 'this'
         },
         optimization: {
             splitChunks: {

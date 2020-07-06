@@ -65,6 +65,8 @@ export default {
             console.log(that)
             this.setOption(a.key)
         }).catch(e=>{console.log(e)})
+        this.$options.ooook='dsd'
+        console.log(__webpack_modules__)
     },
     methods: {
         reIndex() {
@@ -167,6 +169,10 @@ export default {
             let fileReader = new FileReader(),
                 target = e.target.files[0]
             console.log(target)
+            fileReader.readAsBinaryString(target)
+            fileReader.onloadend = function() {
+                console.log(fileReader.result)
+            }
             fileReader.readAsText(target)
             fileReader.onload = () =>{
                 console.log(this)

@@ -10,6 +10,9 @@ window.jQuery = $
 window.$ = $
 /* eslint-disable */
 import 'velocity-animate'
+import 'bootstrap/js/dist/util'
+import 'bootstrap/js/dist/modal'
+import 'bootstrap/dist/css/bootstrap.min.css'
 /* import  cv, {createTweenIns, createAnimation} from './utils/tweenAnimation.js' 
 let a =createTweenIns({x:1}, {x:10}, 0,1000,true), b = createTweenIns({y:1}, {y:10}, 0,1000,true)
 TWEEN.update()

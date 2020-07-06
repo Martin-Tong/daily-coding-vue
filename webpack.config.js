@@ -17,13 +17,14 @@ module.exports = /* SPA config */(env) => {
         output: {
             path: path.resolve(__dirname, 'dist'),
             filename: isProduction ? "[chunkhash:8].file.js" : "[name].file.js", //[chunkhash:8]等于output.hashDigestLength:8
-            chunkFilename: isProduction ? "[id].[chunkhash:8].js" : "[name].chunkFile.js",
+			chunkFilename: isProduction ? "[id].[chunkhash:8].js" : "[name].chunkFile.js",
             sourceMapFilename: 'sourceMap/[file].map',
             jsonpFunction: 'vueProject',
             /* 
             publicPath: 'statics/' //导出的html内部所有的资源连接将会加上statics/前缀（相对于index.html页面的位置）
                                 //也可以是绝对路径，如使用CDN资源 
             */
+           crossOriginLoading: 'anonymous'
         },
         resolve: {
             alias: {
@@ -32,15 +33,19 @@ module.exports = /* SPA config */(env) => {
         },
         devtool: isProduction ? '' : 'source-map',
         devServer: {
+            host: '0.0.0.0',
+            port: 1993,
             contentBase: path.join(__dirname, 'dist/public'),
             contentBasePublicPath: '/static',
             open: 'chrome',
-            compress: false,
+            compress: true,
             writeToDisk: true,
             historyApiFallback: true,
             /* openPage: ['', 'three'] */
-            openPage: 'three',
-            overlay: true
+            openPage: 'echarts',
+            overlay: true,
+            disableHostCheck: true
+            /* useLocalIp: true */
         },
         optimization: {
             /* //这个配置会导致entry生成的文件打包时作为non-entry file打包，即文件名为output.chunkFilename,而生成的运行时文件的命名为output.filename
@@ -59,9 +64,7 @@ module.exports = /* SPA config */(env) => {
                     let a = module.identifier().split('/').reduceRight(item => item)
                     return `vendor~${a}`
                 }, */         
-                name: function(module, chunks, cacheGroupKey) {
-                    return chunks.id
-                },                 
+                name: true,                 
                 cacheGroups: {                 
                     'vue-x': {
                         name(module, chunks, cacheGroupKey) {
@@ -102,6 +105,14 @@ module.exports = /* SPA config */(env) => {
                         test:/[\\/]node_modules[\\/]velocity-animate[\\/]/,
                         filename: 'vendors/dependence-[name].js',
                         chunks: 'all'
+					},
+					bootstrap: {
+                        name(module, chunks, cacheGroupKey) {
+                            return cacheGroupKey
+                        },
+                        test:/[\\/]node_modules[\\/]bootstrap[\\/]/,
+                        filename: 'vendors/dependence-[name].js',
+                        chunks: 'all'
                     }
                    /*  './src/router/index.js'里需要修改Three的引用方式为非动态导入才能成功split
                     three: {
@@ -126,7 +137,11 @@ module.exports = /* SPA config */(env) => {
                     test: /\.js$/,
                     exclude: /node_modules/,
                     use: ['babel-loader', {loader:"eslint-loader",options:{fix:true}}]
-                }
+				},
+				{
+					test: /\.s(c|a)ss$/,
+					use: [!isProduction ? miniCssExtractPlugin.loader : 'vue-style-loader', 'css-loader', 'sass-loader']
+				}
             ]
         },
         plugins: [
