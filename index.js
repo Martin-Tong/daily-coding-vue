@@ -5,10 +5,8 @@ import Router from 'vue-router'
 import Vuex from 'vuex'
 import router from '@/router/index.js'
 import store from '@/store/index.js'
-/* eslint-disable */
 window.jQuery = $
 window.$ = $
-/* eslint-disable */
 import 'velocity-animate'
 import 'bootstrap/js/dist/util'
 import 'bootstrap/js/dist/modal'
@@ -26,7 +24,7 @@ Vue.config.errorHandler = function(err, vm, info) {
     console.log(vm)
 }
 /* eslint-disable */
-Vue.config.performance = true
+Vue.config.performance = !process.env.production
 
 // $FlowFixMe
 const baseComponents = require.context('./src/components/global_components', false, /\.vue$/, 'lazy')

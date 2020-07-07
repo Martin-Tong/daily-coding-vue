@@ -130,8 +130,8 @@ module.exports = /* SPA config */(env) => {
                     use: 'vue-loader'
                 },
                 {
-                    test: /\.css$/,
-                    use: [!isProduction ? miniCssExtractPlugin.loader : 'vue-style-loader', 'css-loader']
+					test: /\.css$/,
+                    use: [!isProduction ? miniCssExtractPlugin.loader : 'vue-style-loader', 'css-loader', 'postcss-loader']
                 },
                 {
                     test: /\.js$/,
@@ -140,7 +140,7 @@ module.exports = /* SPA config */(env) => {
 				},
 				{
 					test: /\.s(c|a)ss$/,
-					use: [!isProduction ? miniCssExtractPlugin.loader : 'vue-style-loader', 'css-loader', 'sass-loader']
+					use: [!isProduction ? miniCssExtractPlugin.loader : 'vue-style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
 				}
             ]
         },

@@ -205,5 +205,8 @@ export default {
     }
     .test-move {
         transition: transform 0.5s;
-    }
+	}
+	::placeholder {
+		color: red
+	}
 </style>

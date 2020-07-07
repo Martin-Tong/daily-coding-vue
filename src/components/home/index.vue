@@ -4,7 +4,11 @@
         <Carousel style="width:1680px;height:420px;margin: 0 auto">
             <CarouselItem v-for="i in 5" :key="i" src="https://30erli.cn/static/img/timg.0eaf803.jpg" :data-index="i" />
         </Carousel>
-        <Test />
+        <Test>
+			<template v-slot:slot1="{slot1}">
+				{{slot1}}
+			</template>
+        </Test>
     </div>
 </template>
 
